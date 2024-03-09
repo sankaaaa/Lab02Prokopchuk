@@ -9,18 +9,18 @@ namespace Lab02Prokopchuk.Views
     /// </summary>
     public partial class UserDataView : UserControl
     {
-        private readonly UserDataViewModel _viewModel;
+        private readonly UserDataViewModel _userDataViewModel;
         public UserDataView()
         {
             InitializeComponent();
-            DataContext = _viewModel = new UserDataViewModel();
+            DataContext = _userDataViewModel = new UserDataViewModel();
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime? chosenDate = datePicker.SelectedDate;
             if (chosenDate != null)
-                _viewModel.Date = chosenDate.Value;
+                _userDataViewModel.Date = chosenDate.Value;
         }
     }
 }

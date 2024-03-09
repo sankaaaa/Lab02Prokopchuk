@@ -1,11 +1,8 @@
 ﻿using Lab02Prokopchuk.Models;
 using Lab02Prokopchuk.Tools;
-using Microsoft.VisualBasic;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,14 +14,14 @@ namespace Lab02Prokopchuk.ViewModels
         #region Fields
         private Person _person;
         private string _name;
-        private string _lastName;
+        private string _lastname;
         private string _email;
         private DateTime _date;
 
-        private string _usersData = "";
+        private string _userdata = "";
         private bool _enableButton = true;
-        public event PropertyChangedEventHandler? PropertyChanged;
         private RelayCommand<object> _proceedCommand;
+        public event PropertyChangedEventHandler? PropertyChanged;
         #endregion
 
         #region Properties
@@ -38,13 +35,13 @@ namespace Lab02Prokopchuk.ViewModels
             }
         }
 
-        public string LastName
+        public string Surname
         {
-            get { return _lastName; }
+            get { return _lastname; }
             set
             {
-                _lastName = value;
-                OnPropertyChanged("Last name");
+                _lastname = value;
+                OnPropertyChanged("Lastname");
             }
         }
 
@@ -68,16 +65,6 @@ namespace Lab02Prokopchuk.ViewModels
             }
         }
 
-        public string UsersData
-        {
-            get { return _usersData; }
-            set
-            {
-                _usersData = value;
-                OnPropertyChanged("Information");
-            }
-        }
-
         public Person Person
         {
             get { return _person; }
@@ -85,6 +72,16 @@ namespace Lab02Prokopchuk.ViewModels
             {
                 _person = value;
                 OnPropertyChanged("Person");
+            }
+        }
+
+        public string UserData
+        {
+            get { return _userdata; }
+            set
+            {
+                _userdata = value;
+                OnPropertyChanged("UserData");
             }
         }
 
@@ -97,18 +94,17 @@ namespace Lab02Prokopchuk.ViewModels
                 OnPropertyChanged("ProceedEnabled");
             }
         }
-
         #endregion
 
         private async void InformationProceedCommand(object obj)
         {
-            UsersData = "";
+            UserData = "";
             await Task.Run(() =>
             {
                 Thread.Sleep(500);
-                Person = new Person(Name, LastName, Email, Date);
+                Person = new Person(Name, Surname, Email, Date);
                 if (Person.CheckIfValidBD())
-                    UsersData = Person.ToString();
+                    UserData = Person.ToString();
                 else
                     MessageBox.Show("Wrong data entered!");
                 Thread.Sleep(500);
@@ -118,19 +114,23 @@ namespace Lab02Prokopchuk.ViewModels
         private bool CanExecute()
         {
             return !string.IsNullOrWhiteSpace(Name)
-                && !string.IsNullOrWhiteSpace(LastName)
+                && !string.IsNullOrWhiteSpace(Surname)
                 && !string.IsNullOrWhiteSpace(Email)
                 && Date != DateTime.MinValue;
         }
 
         public RelayCommand<object> ProceedCommand
         {
-            get { return _proceedCommand ??= new RelayCommand<object>(InformationProceedCommand, _ => CanExecute()); }
-        }
+            get
+            { 
+                return _proceedCommand ??= new RelayCommand<object>(InformationProceedCommand, _ => CanExecute()); 
+            }
+        } 
 
-        public void OnPropertyChanged(string v)
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            throw new NotImplementedException();
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }

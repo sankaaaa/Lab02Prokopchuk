@@ -51,45 +51,93 @@ namespace Lab02Prokopchuk.Models
 
         private string CountSunZodiac()
         {
-            var bdayMonth = _birthday.Month;
-            var bdayDay = _birthday.Day;
+            var day = Birthday.Day;
+            var month = Birthday.Month;
 
-            if (bdayMonth == 1)
-                return bdayDay < 20 ? SunSignsZodiac[0] : SunSignsZodiac[1];
-
-            else if (bdayMonth == 2)
-                return bdayDay < 19 ? SunSignsZodiac[1] : SunSignsZodiac[2];
-
-            else if (bdayMonth == 3)
-                return bdayDay < 21 ? SunSignsZodiac[2] : SunSignsZodiac[3];
-
-            else if (bdayMonth == 4)
-                return bdayDay <= 20 ? SunSignsZodiac[3] : SunSignsZodiac[4];
-
-            else if (bdayMonth == 5)
-                return bdayDay < 21 ? SunSignsZodiac[4] : SunSignsZodiac[5];
-
-            else if (bdayMonth == 6)
-                return bdayDay < 21 ? SunSignsZodiac[5] : SunSignsZodiac[6];
-
-            else if (bdayMonth == 7)
-                return bdayDay < 23 ? SunSignsZodiac[6] : SunSignsZodiac[7];
-
-            else if (bdayMonth == 8)
-                return bdayDay < 23 ? SunSignsZodiac[7] : SunSignsZodiac[8];
-
-            else if (bdayMonth == 9)
-                return bdayDay < 23 ? SunSignsZodiac[8] : SunSignsZodiac[9];
-
-            else if (bdayMonth == 10)
-                return bdayDay < 23 ? SunSignsZodiac[9] : SunSignsZodiac[10];
-
-            else if (bdayMonth == 11)
-                return bdayDay < 22 ? SunSignsZodiac[10] : SunSignsZodiac[11];
-
-            else if (bdayMonth == 12)
-                return bdayDay < 22 ? SunSignsZodiac[11] : SunSignsZodiac[0];
-
+            if (month == 1)
+            {
+                if (day < 20)
+                    return SunSignsZodiac[0];
+                else 
+                    return SunSignsZodiac[1];
+            }
+            else if (month == 2)
+            {
+                if (day < 19) 
+                    return SunSignsZodiac[1];
+                else 
+                    return SunSignsZodiac[2];
+            }
+            else if (month == 3)
+            {
+                if (day < 21) 
+                    return SunSignsZodiac[2];
+                else 
+                    return SunSignsZodiac[3];
+            }
+            else if (month == 4)
+            {
+                if (day < 21) 
+                    return SunSignsZodiac[3];
+                else 
+                    return SunSignsZodiac[4];
+            }
+            else if (month == 5)
+            {
+                if (day < 21) 
+                    return SunSignsZodiac[4];
+                else 
+                    return SunSignsZodiac[5];
+            }
+            else if (month == 6)
+            {
+                if (day < 21) 
+                    return SunSignsZodiac[5];
+                else
+                    return SunSignsZodiac[6];
+            }
+            else if (month == 7)
+            {
+                if (day < 23) 
+                    return SunSignsZodiac[6];
+                else 
+                    return SunSignsZodiac[7];
+            }
+            else if (month == 8)
+            {
+                if (day < 23)
+                    return SunSignsZodiac[7];
+                else 
+                    return SunSignsZodiac[8];
+            }
+            else if (month == 9)
+            {
+                if (day < 23) 
+                    return SunSignsZodiac[8];
+                else 
+                    return SunSignsZodiac[9];
+            }
+            else if (month == 10)
+            {
+                if (day < 23)
+                    return SunSignsZodiac[9];
+                else
+                    return SunSignsZodiac[10];
+            }
+            else if (month == 11)
+            {
+                if (day < 22) 
+                    return SunSignsZodiac[10];
+                else 
+                    return SunSignsZodiac[11];
+            }
+            else if (month == 12)
+            {
+                if (day < 22) 
+                    return SunSignsZodiac[11];
+                else 
+                    return SunSignsZodiac[0];
+            }
             else
                 return "Error";
         }
@@ -149,7 +197,7 @@ namespace Lab02Prokopchuk.Models
             if (IsBirthday)
                 sb.AppendLine("Birthday is today!");
             else
-                sb.AppendLine($"Age: {CountAge}");
+                sb.AppendLine($"Age: {CountAge()}");
             sb.AppendLine($"Sun sign: {SunSign}");
             sb.AppendLine($"Chinese sign: {ChineseSign}");
             return sb.ToString();
